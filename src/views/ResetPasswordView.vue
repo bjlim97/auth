@@ -1,65 +1,166 @@
 <template>
-  <div>
-    <h2>Reset Password</h2>
+  <div class="container">
+    <div class="card">
+      <h2>Reset Password</h2>
+      <p class="subtitle">Enter your new password below</p>
 
-    <form @submit.prevent="handleSubmit">
-      <input
-        v-model="newPassword"
-        type="password"
-        placeholder="New Password"
-        required
-      />
+      <form @submit.prevent="handleSubmit">
+        <div class="form-group">
+          <label>New Password</label>
+          <input
+            v-model="newPassword"
+            type="password"
+            placeholder="Enter new password"
+            required
+          />
+        </div>
 
-      <button type="submit" :disabled="loading">
-        {{ loading ? 'Resetting...' : 'Reset Password' }}
-      </button>
-    </form>
+        <button type="submit" :disabled="loading">
+          {{ loading ? "Resetting..." : "Reset Password" }}
+        </button>
+      </form>
 
-    <p v-if="success" style="color:green">
-      Password reset successful!
-    </p>
+      <p v-if="success" class="success">
+        Password reset successful! Redirecting...
+      </p>
 
-    <p v-if="error" style="color:red">{{ error }}</p>
+      <p v-if="error" class="error">{{ error }}</p>
+
+      <router-link to="/login" class="back-link"> Back to Login </router-link>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { authService } from '../services/authService'
+import { ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { authService } from "../services/authService";
 
-const route = useRoute()
-const router = useRouter()
+const route = useRoute();
+const router = useRouter();
 
-const newPassword = ref('')
-const loading = ref(false)
-const success = ref(false)
-const error = ref('')
+const newPassword = ref("");
+const loading = ref(false);
+const success = ref(false);
+const error = ref("");
 
 const handleSubmit = async () => {
-  const email = route.query.email as string
+  const email = route.query.email as string;
 
   if (!email) {
-    error.value = 'Invalid reset link'
-    return
+    error.value = "Invalid reset link";
+    return;
   }
 
   try {
-    loading.value = true
-    error.value = ''
+    loading.value = true;
+    error.value = "";
 
-    await authService.resetPassword(email, newPassword.value)
+    await authService.resetPassword(email, newPassword.value);
 
-    success.value = true
+    success.value = true;
 
     setTimeout(() => {
-      router.push('/login')
-    }, 1500)
-
+      router.push("/login");
+    }, 1500);
   } catch (err: any) {
-    error.value = err.message
+    error.value = err.message;
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
+};
 </script>
+
+<style scoped>
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f3f4f6;
+}
+
+.card {
+  background: white;
+  padding: 40px;
+  width: 380px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.subtitle {
+  color: #6b7280;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  margin-top: 5px;
+  transition: 0.2s;
+}
+
+input:focus {
+  outline: none;
+  border-color: #4f46e5;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.3s;
+  font-weight: 600;
+}
+
+button:hover:not(:disabled) {
+  background: #4338ca;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.success {
+  margin-top: 15px;
+  padding: 12px;
+  background: #f0fdf4;
+  border: 1px solid #16a34a;
+  border-radius: 6px;
+  color: #166534;
+}
+
+.error {
+  color: red;
+  margin-top: 15px;
+}
+
+.back-link {
+  display: block;
+  margin-top: 15px;
+  color: #4f46e5;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+</style>
