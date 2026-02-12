@@ -1,8 +1,10 @@
 <template>
   <div class="dashboard">
     <main class="content">
-      <h1>Dashboard</h1>
-      <p>Welcome back, {{ user?.name }}</p>
+      <h1>{{ t("dashboard") }}</h1>
+      <p v-if="user">
+        {{ t("welcomeBackUser", { name: user.name }) }}
+      </p>
     </main>
   </div>
 </template>
@@ -12,6 +14,7 @@ import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { authService } from "../services/authService";
 import type { User } from "../types/User";
+import { t } from "../services/i18n";
 
 const router = useRouter();
 const user = ref<User | null>(null);

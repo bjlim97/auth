@@ -12,8 +12,8 @@
         </div>
 
         <div class="dropdown language-dropdown">
-          <button @click="changeLanguage('en')">English</button>
-          <button @click="changeLanguage('zh')">Mandarin</button>
+          <button @click="changeLanguage('en')">{{ t("english") }}</button>
+          <button @click="changeLanguage('zh')">{{ t("mandarin") }}</button>
         </div>
       </div>
 
@@ -36,12 +36,12 @@
         <div class="dropdown">
           <button @click="$emit('profile')">
             <UserIcon size="16" class="menu-icon" />
-            Profile
+            {{ t("profile") }}
           </button>
 
           <button @click="$emit('logout')">
             <LogOut size="16" class="menu-icon" />
-            Logout
+            {{ t("logout") }}
           </button>
         </div>
       </div>
@@ -55,6 +55,8 @@ import logo from "../assets/logo.png";
 import type { User } from "../types/User";
 import { useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
+import { setLanguage } from "../services/i18n";
+import { t } from "../services/i18n";
 
 const props = defineProps<{
   user: User | null;
@@ -64,6 +66,10 @@ defineEmits(["profile", "logout"]);
 
 const router = useRouter();
 const isDark = ref(false);
+
+const changeLanguage = (lang: "en" | "zh") => {
+  setLanguage(lang);
+};
 
 onMounted(() => {
   const saved = localStorage.getItem("theme");
@@ -88,10 +94,6 @@ const toggleTheme = () => {
 
 const goHome = () => {
   router.push("/dashboard");
-};
-
-const changeLanguage = (lang: string) => {
-  console.log("Language changed to:", lang);
 };
 </script>
 

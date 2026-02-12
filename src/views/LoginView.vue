@@ -1,33 +1,33 @@
 <template>
   <div class="container">
     <div class="card">
-      <h2>Welcome Back 👋</h2>
-      <p class="subtitle">Login to your account</p>
+      <h2>{{ t("welcomeBackTitle") }}</h2>
+      <p class="subtitle">{{ t("loginSubtitle") }}</p>
 
       <form @submit.prevent="handleLogin">
         <div class="form-group">
-          <label>Email</label>
+          <label>{{ t("email") }}</label>
           <input v-model="email" type="email" required />
         </div>
 
         <div class="form-group">
-          <label>Password</label>
+          <label>{{ t("password") }}</label>
           <input v-model="password" type="password" required />
         </div>
 
         <button type="submit" :disabled="loading">
-          {{ loading ? "Logging in..." : "Login" }}
+          {{ loading ? t("loggingIn") : t("login") }}
         </button>
       </form>
 
       <p v-if="error" class="error">{{ error }}</p>
 
       <router-link to="/register" class="register-btn">
-        Create an Account
+        {{ t("createAccount") }}
       </router-link>
 
       <router-link to="/forgot-password" class="link">
-        Forgot Password?
+        {{ t("forgotPassword") }}
       </router-link>
     </div>
   </div>
@@ -37,6 +37,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { authService } from "../services/authService";
+import { t } from "../services/i18n";
 
 const router = useRouter();
 const email = ref("");

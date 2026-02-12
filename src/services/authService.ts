@@ -1,5 +1,6 @@
 import { ref } from "vue";
 import type { User } from "../types/User";
+import { t } from "./i18n";
 
 const USERS_KEY = "users";
 const CURRENT_USER_KEY = "currentUser";
@@ -24,7 +25,7 @@ export const authService = {
 
     // Optional: keep this for safety (recommended)
     const exists = users.some(u => u.email === user.email);
-    if (exists) throw new Error("Email already registered");
+    if (exists) throw new Error(t("emailAlreadyRegistered"));
 
     users.push(user);
     localStorage.setItem(USERS_KEY, JSON.stringify(users));
@@ -42,7 +43,7 @@ export const authService = {
       u => u.email === email && u.password === password
     );
 
-    if (!user) throw new Error("Invalid credentials");
+    if (!user) throw new Error(t("invalidCredentials"));
 
     currentUser.value = user;
     localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
@@ -71,7 +72,7 @@ export const authService = {
       u => u.email === updatedUser.email
     );
 
-    if (index === -1) throw new Error("User not found");
+    if (index === -1) throw new Error(t("userNotFound"));
 
     users[index] = updatedUser;
 

@@ -3,44 +3,46 @@
     <div class="card">
       <RegisterProgress :currentStep="2" />
 
-      <h2>Create Account</h2>
-      <p class="subtitle">Step 2: Personal Information</p>
+      <h2>{{ t("createAccount") }}</h2>
+      <p class="subtitle">{{ t("step2PersonalInfo") }}</p>
 
       <form @submit.prevent="handleNext">
         <div class="form-group">
-          <label>Name</label>
+          <label>{{ t("name") }}</label>
           <input v-model="name" required />
         </div>
 
         <div class="form-group">
-          <label>Phone</label>
+          <label>{{ t("phone") }}</label>
           <input v-model="phone" required />
         </div>
 
         <div class="form-group">
-          <label>Address</label>
+          <label>{{ t("address") }}</label>
           <input v-model="address" required />
         </div>
 
         <div class="form-group">
-          <label>Age</label>
+          <label>{{ t("age") }}</label>
           <input v-model.number="age" type="number" required />
         </div>
 
         <div class="form-group">
-          <label>Gender</label>
+          <label>{{ t("gender") }}</label>
           <select v-model="gender" required>
-            <option disabled value="">Select Gender</option>
-            <option>Male</option>
-            <option>Female</option>
+            <option disabled value="">{{ t("selectGender") }}</option>
+            <option value="male">{{ t("male") }}</option>
+            <option value="female">{{ t("female") }}</option>
           </select>
         </div>
 
         <div class="button-group">
-          <button type="button" class="secondary" @click="goBack">Back</button>
+          <button type="button" class="secondary" @click="goBack">
+            {{ t("back") }}
+          </button>
 
           <button type="submit" :disabled="loading">
-            {{ loading ? "Processing..." : "Next" }}
+            {{ loading ? t("processing") : t("next") }}
           </button>
         </div>
       </form>
@@ -52,6 +54,7 @@
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import RegisterProgress from "../../components/RegisterProgress.vue";
+import { t } from "../../services/i18n";
 
 const router = useRouter();
 

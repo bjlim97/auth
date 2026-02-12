@@ -1,41 +1,44 @@
 <template>
   <div class="container">
     <div class="card">
-      <h2>Forgot Password</h2>
-      <p class="subtitle">Enter your email to reset your password</p>
+      <h2>{{ t("forgotPasswordTitle") }}</h2>
+      <p class="subtitle">{{ t("forgotPasswordSubtitle") }}</p>
 
       <form @submit.prevent="handleReset">
         <div class="form-group">
-          <label>Email</label>
+          <label>{{ t("emailPlaceholder") }}</label>
           <input
             v-model="email"
             type="email"
-            placeholder="Enter your email"
+            :placeholder="t('emailPlaceholder')"
             required
           />
         </div>
 
         <button type="submit" :disabled="loading">
-          {{ loading ? "Processing..." : "Reset Password" }}
+          {{ loading ? t("processing") : t("resetPassword") }}
         </button>
       </form>
 
       <div v-if="message" class="success-box">
         <p>{{ message }}</p>
         <router-link class="reset-link" :to="`/reset-password?email=${email}`">
-          Click here to reset password
+          {{ t("clickToReset") }}
         </router-link>
       </div>
 
       <p v-if="error" class="error">{{ error }}</p>
 
-      <router-link to="/login" class="back-link"> Back to Login </router-link>
+      <router-link to="/login" class="back-link">{{
+        t("backToLogin")
+      }}</router-link>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { t } from "../services/i18n";
 
 const email = ref("");
 const loading = ref(false);
@@ -53,9 +56,9 @@ const handleReset = async () => {
   const exists = users.find((u: any) => u.email === email.value);
 
   if (!exists) {
-    error.value = "Email not found";
+    error.value = t("emailNotFound");
   } else {
-    message.value = "Reset link generated successfully.";
+    message.value = t("resetLinkGenerated");
   }
 
   loading.value = false;

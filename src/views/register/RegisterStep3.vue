@@ -3,52 +3,52 @@
     <div class="card">
       <RegisterProgress :currentStep="3" />
 
-      <h2>Create Account</h2>
-      <p class="subtitle">Step 3: Confirm Your Details</p>
+      <h2>{{ t("createAccount") }}</h2>
+      <p class="subtitle">{{ t("step3ConfirmDetails") }}</p>
 
       <div v-if="formData" class="summary">
         <div class="summary-item">
-          <span>Email</span>
+          <span>{{ t("email") }}</span>
           <strong>{{ formData.email }}</strong>
         </div>
 
         <div class="summary-item">
-          <span>Name</span>
+          <span>{{ t("name") }}</span>
           <strong>{{ formData.name }}</strong>
         </div>
 
         <div class="summary-item">
-          <span>Phone</span>
+          <span>{{ t("phone") }}</span>
           <strong>{{ formData.phone }}</strong>
         </div>
 
         <div class="summary-item">
-          <span>Address</span>
+          <span>{{ t("address") }}</span>
           <strong>{{ formData.address }}</strong>
         </div>
 
         <div class="summary-item">
-          <span>Age</span>
+          <span>{{ t("age") }}</span>
           <strong>{{ formData.age }}</strong>
         </div>
 
         <div class="summary-item">
-          <span>Gender</span>
-          <strong>{{ formData.gender }}</strong>
+          <span>{{ t("gender") }}</span>
+          <strong>{{ t(formData.gender as "male" | "female") }}</strong>
         </div>
       </div>
 
       <div class="button-group">
-        <button class="secondary" @click="goBack">Back</button>
+        <button class="secondary" @click="goBack">{{ t("back") }}</button>
 
         <button @click="handleRegister" :disabled="loading">
-          {{ loading ? "Registering..." : "Confirm & Register" }}
+          {{ loading ? t("registering") : t("confirmRegister") }}
         </button>
       </div>
 
       <p v-if="error" class="error">{{ error }}</p>
       <p v-if="success" class="success">
-        Registration Successful! Redirecting...
+        {{ t("registrationSuccess") }}
       </p>
     </div>
   </div>
@@ -60,6 +60,7 @@ import { useRouter } from "vue-router";
 import { authService } from "../../services/authService";
 import type { User } from "../../types/User";
 import RegisterProgress from "../../components/RegisterProgress.vue";
+import { t } from "../../services/i18n";
 
 const router = useRouter();
 const formData = ref<User | null>(null);

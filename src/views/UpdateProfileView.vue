@@ -2,41 +2,41 @@
   <div class="dashboard">
     <main class="content">
       <div class="card">
-        <h2>Update Profile</h2>
-        <p class="subtitle">Edit your personal information</p>
+        <h2>{{ t("updateProfile") }}</h2>
+        <p class="subtitle">{{ t("editPersonalInfo") }}</p>
 
         <form v-if="form" @submit.prevent="handleUpdate">
           <div class="form-group">
-            <label>Name</label>
+            <label>{{ t("name") }}</label>
             <input v-model="form.name" required />
           </div>
 
           <div class="form-group">
-            <label>Phone</label>
+            <label>{{ t("phone") }}</label>
             <input v-model="form.phone" required />
           </div>
 
           <div class="form-group">
-            <label>Address</label>
+            <label>{{ t("address") }}</label>
             <input v-model="form.address" required />
           </div>
 
           <div class="form-group">
-            <label>Age</label>
+            <label>{{ t("age") }}</label>
             <input v-model.number="form.age" type="number" required />
           </div>
 
           <div class="form-group">
-            <label>Gender</label>
+            <label>{{ t("gender") }}</label>
             <select v-model="form.gender" required>
-              <option>Male</option>
-              <option>Female</option>
+              <option value="male">{{ t("male") }}</option>
+              <option value="female">{{ t("female") }}</option>
             </select>
           </div>
 
           <div class="button-group">
             <button type="submit" :disabled="loading">
-              {{ loading ? "Updating..." : "Update Profile" }}
+              {{ loading ? t("updating") : t("updateProfile") }}
             </button>
           </div>
         </form>
@@ -44,7 +44,7 @@
         <p v-if="error" class="error">{{ error }}</p>
 
         <p v-if="success" class="success">
-          Profile Updated Successfully! Redirecting...
+          {{ t("profileUpdated") }}
         </p>
       </div>
     </main>
@@ -56,12 +56,18 @@ import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { authService } from "../services/authService";
 import type { User } from "../types/User";
+import { t } from "../services/i18n";
 
 const router = useRouter();
 const form = ref<User | null>(null);
 const loading = ref(false);
 const error = ref("");
 const success = ref(false);
+
+const genderOptions = [
+  { value: "male", label: t("male") },
+  { value: "female", label: t("female") },
+];
 
 onMounted(() => {
   const user = authService.getCurrentUser();

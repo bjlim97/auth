@@ -1,32 +1,32 @@
 <template>
   <div class="container">
     <div class="card">
-      <h2>Reset Password</h2>
-      <p class="subtitle">Enter your new password below</p>
+      <h2>{{ t("resetPasswordTitle") }}</h2>
+      <p class="subtitle">{{ t("resetPasswordSubtitle") }}</p>
 
       <form @submit.prevent="handleSubmit">
         <div class="form-group">
-          <label>New Password</label>
+          <label>{{ t("newPassword") }}</label>
           <input
             v-model="newPassword"
             type="password"
-            placeholder="Enter new password"
+            :placeholder="t('newPasswordPlaceholder')"
             required
           />
         </div>
 
         <button type="submit" :disabled="loading">
-          {{ loading ? "Resetting..." : "Reset Password" }}
+          {{ loading ? t("resetting") : t("resetPassword") }}
         </button>
       </form>
 
       <p v-if="success" class="success">
-        Password reset successful! Redirecting...
+        {{ t("passwordResetSuccess") }}
       </p>
 
-      <p v-if="error" class="error">{{ error }}</p>
+      <p v-if="error" class="error">{{ t("invalidResetLink") }}</p>
 
-      <router-link to="/login" class="back-link"> Back to Login </router-link>
+      <router-link to="/login" class="back-link"> {{ t("backToLogin") }} </router-link>
     </div>
   </div>
 </template>
@@ -35,6 +35,7 @@
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { authService } from "../services/authService";
+import { t } from "../services/i18n";
 
 const route = useRoute();
 const router = useRouter();

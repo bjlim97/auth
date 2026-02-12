@@ -3,29 +3,29 @@
     <div class="card">
       <RegisterProgress :currentStep="1" />
 
-      <h2>Create Account</h2>
-      <p class="subtitle">Step 1: Account Details</p>
+      <h2>{{ t("createAccount") }}</h2>
+      <p class="subtitle">{{ t("step1Title") }}</p>
 
       <form @submit.prevent="handleNext">
         <div class="form-group">
-          <label>Email</label>
+          <label>{{ t("email") }}</label>
           <input v-model="email" type="email" required />
         </div>
 
         <div class="form-group">
-          <label>Password</label>
+          <label>{{ t("password") }}</label>
           <input v-model="password" type="password" required />
         </div>
 
         <button type="submit" :disabled="loading">
-          {{ loading ? "Processing..." : "Next" }}
+          {{ loading ? t("processing") : t("next") }}
         </button>
       </form>
 
       <p v-if="error" class="error">{{ error }}</p>
 
       <router-link to="/login" class="back-link">
-        Already have an account? Login
+        {{ t("alreadyHaveAccount") }}
       </router-link>
     </div>
   </div>
@@ -35,6 +35,7 @@
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import RegisterProgress from "../../components/RegisterProgress.vue";
+import { t } from "../../services/i18n";
 
 const router = useRouter();
 
@@ -66,7 +67,7 @@ const handleNext = async () => {
     const exists = users.find((u: any) => u.email === email.value);
 
     if (exists) {
-      throw new Error("Email already registered");
+      throw new Error(t("emailAlreadyRegistered"));
     }
 
     // Save step 1 data
