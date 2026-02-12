@@ -221,6 +221,7 @@ html.dark .logo-img {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   padding: 8px 0;
   display: none;
+  z-index: 10;
 }
 
 .user-menu:hover .dropdown {
