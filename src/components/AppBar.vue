@@ -25,13 +25,13 @@
         </div>
       </div>
 
-      <!-- User -->
-      <div class="user-menu">
+      <!-- User Menu (ONLY when logged in) -->
+      <div v-if="user" class="user-menu">
         <div class="avatar">
           <UserIcon size="18" />
         </div>
 
-        <span class="username">{{ user?.name }}</span>
+        <span class="username">{{ user.name }}</span>
 
         <div class="dropdown">
           <button @click="$emit('profile')">
@@ -56,7 +56,7 @@ import type { User } from "../types/User";
 import { useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
 
-defineProps<{
+const props = defineProps<{
   user: User | null;
 }>();
 

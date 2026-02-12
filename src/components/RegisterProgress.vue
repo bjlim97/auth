@@ -75,6 +75,7 @@ const progressWidth = computed(() => {
   align-items: center;
   z-index: 2;
   font-weight: bold;
+  color: #9ca3af;
 }
 
 .circle.active {

@@ -1,7 +1,5 @@
 <template>
   <div class="dashboard">
-    <AppBar :user="user" @profile="goToUpdate" @logout="handleLogout" />
-
     <main class="content">
       <h1>Dashboard</h1>
       <p>Welcome back, {{ user?.name }}</p>
@@ -14,7 +12,6 @@ import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { authService } from "../services/authService";
 import type { User } from "../types/User";
-import AppBar from "../components/AppBar.vue";
 
 const router = useRouter();
 const user = ref<User | null>(null);

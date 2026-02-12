@@ -1,7 +1,5 @@
 <template>
   <div class="dashboard">
-    <AppBar :user="form" @profile="() => {}" @logout="handleLogout" />
-
     <main class="content">
       <div class="card">
         <h2>Update Profile</h2>
@@ -58,7 +56,6 @@ import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { authService } from "../services/authService";
 import type { User } from "../types/User";
-import AppBar from "../components/AppBar.vue";
 
 const router = useRouter();
 const form = ref<User | null>(null);
