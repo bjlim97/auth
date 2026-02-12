@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import RegisterProgress from "../../components/RegisterProgress.vue";
 
@@ -42,6 +42,17 @@ const email = ref("");
 const password = ref("");
 const loading = ref(false);
 const error = ref("");
+
+onMounted(() => {
+  const savedStep1 = JSON.parse(
+    localStorage.getItem("registerStep1") || "null",
+  );
+
+  if (savedStep1) {
+    email.value = savedStep1.email;
+    password.value = savedStep1.password;
+  }
+});
 
 const handleNext = async () => {
   try {

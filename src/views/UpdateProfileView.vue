@@ -1,51 +1,55 @@
 <template>
-  <div class="container">
-    <div class="card">
-      <h2>Update Profile</h2>
-      <p class="subtitle">Edit your personal information</p>
+  <div class="dashboard">
+    <AppBar :user="form" @profile="() => {}" @logout="handleLogout" />
 
-      <form v-if="form" @submit.prevent="handleUpdate">
-        <div class="form-group">
-          <label>Name</label>
-          <input v-model="form.name" required />
-        </div>
+    <main class="content">
+      <div class="card">
+        <h2>Update Profile</h2>
+        <p class="subtitle">Edit your personal information</p>
 
-        <div class="form-group">
-          <label>Phone</label>
-          <input v-model="form.phone" required />
-        </div>
+        <form v-if="form" @submit.prevent="handleUpdate">
+          <div class="form-group">
+            <label>Name</label>
+            <input v-model="form.name" required />
+          </div>
 
-        <div class="form-group">
-          <label>Address</label>
-          <input v-model="form.address" required />
-        </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input v-model="form.phone" required />
+          </div>
 
-        <div class="form-group">
-          <label>Age</label>
-          <input v-model.number="form.age" type="number" required />
-        </div>
+          <div class="form-group">
+            <label>Address</label>
+            <input v-model="form.address" required />
+          </div>
 
-        <div class="form-group">
-          <label>Gender</label>
-          <select v-model="form.gender" required>
-            <option>Male</option>
-            <option>Female</option>
-          </select>
-        </div>
+          <div class="form-group">
+            <label>Age</label>
+            <input v-model.number="form.age" type="number" required />
+          </div>
 
-        <div class="button-group">
-          <button type="submit" :disabled="loading">
-            {{ loading ? "Updating..." : "Update Profile" }}
-          </button>
-        </div>
-      </form>
+          <div class="form-group">
+            <label>Gender</label>
+            <select v-model="form.gender" required>
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+          </div>
 
-      <p v-if="error" class="error">{{ error }}</p>
+          <div class="button-group">
+            <button type="submit" :disabled="loading">
+              {{ loading ? "Updating..." : "Update Profile" }}
+            </button>
+          </div>
+        </form>
 
-      <p v-if="success" class="success">
-        Profile Updated Successfully! Redirecting...
-      </p>
-    </div>
+        <p v-if="error" class="error">{{ error }}</p>
+
+        <p v-if="success" class="success">
+          Profile Updated Successfully! Redirecting...
+        </p>
+      </div>
+    </main>
   </div>
 </template>
 
@@ -54,6 +58,7 @@ import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { authService } from "../services/authService";
 import type { User } from "../types/User";
+import AppBar from "../components/AppBar.vue";
 
 const router = useRouter();
 const form = ref<User | null>(null);
@@ -63,6 +68,7 @@ const success = ref(false);
 
 onMounted(() => {
   const user = authService.getCurrentUser();
+
   if (!user) {
     router.push("/login");
     return;
@@ -70,6 +76,11 @@ onMounted(() => {
 
   form.value = { ...user };
 });
+
+const handleLogout = () => {
+  authService.logout();
+  router.push("/login");
+};
 
 const handleUpdate = async () => {
   if (!form.value) return;
@@ -99,12 +110,15 @@ const handleUpdate = async () => {
   box-sizing: border-box;
 }
 
-.container {
+.dashboard {
   min-height: 100vh;
+  background: #f5f6f8;
+}
+
+.content {
+  padding: 40px;
   display: flex;
   justify-content: center;
-  align-items: center;
-  background: #f3f4f6;
 }
 
 .card {
@@ -112,7 +126,7 @@ const handleUpdate = async () => {
   padding: 40px;
   width: 420px;
   border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   text-align: center;
 }
 
