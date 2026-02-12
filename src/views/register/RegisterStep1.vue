@@ -58,11 +58,24 @@ const handleNext = async () => {
   try {
     loading.value = true;
     error.value = "";
-    await new Promise((resolve) => setTimeout(resolve, 1000));
 
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    // Check if email already exists
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    const exists = users.find((u: any) => u.email === email.value);
+
+    if (exists) {
+      throw new Error("Email already registered");
+    }
+
+    // Save step 1 data
     localStorage.setItem(
       "registerStep1",
-      JSON.stringify({ email: email.value, password: password.value }),
+      JSON.stringify({
+        email: email.value,
+        password: password.value,
+      }),
     );
 
     router.push("/register/step-2");
