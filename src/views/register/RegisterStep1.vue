@@ -84,20 +84,21 @@ const handleNext = async () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f3f4f6;
+  background: var(--bg);
+  color: var(--text);
 }
 
 .card {
-  background: white;
+  background: var(--card-bg);
   padding: 40px;
   width: 380px;
   border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   text-align: center;
 }
 
 .subtitle {
-  color: #6b7280;
+  color: var(--text-muted);
   margin-bottom: 20px;
 }
 
@@ -110,30 +111,30 @@ input {
   width: 100%;
   padding: 10px;
   border-radius: 6px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border);
   margin-top: 5px;
-  transition: 0.2s;
+  background: var(--input-bg);
+  color: var(--text);
 }
 
 input:focus {
   outline: none;
-  border-color: #4f46e5;
+  border-color: var(--primary);
 }
 
 button {
   width: 100%;
   padding: 10px;
-  background: #4f46e5;
+  background: var(--primary);
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   margin-top: 10px;
-  transition: 0.3s;
 }
 
 button:hover:not(:disabled) {
-  background: #4338ca;
+  background: var(--primary-hover);
 }
 
 button:disabled {
@@ -142,14 +143,14 @@ button:disabled {
 }
 
 .error {
-  color: red;
+  color: #ef4444;
   margin-top: 10px;
 }
 
 .back-link {
   display: block;
   margin-top: 15px;
-  color: #4f46e5;
+  color: var(--primary);
   text-decoration: none;
 }
 

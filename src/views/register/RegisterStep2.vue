@@ -117,20 +117,21 @@ const handleNext = async () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f3f4f6;
+  background: var(--bg);
+  color: var(--text);
 }
 
 .card {
-  background: white;
+  background: var(--card-bg);
   padding: 40px;
   width: 400px;
   border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   text-align: center;
 }
 
 .subtitle {
-  color: #6b7280;
+  color: var(--text-muted);
   margin-bottom: 20px;
 }
 
@@ -144,15 +145,16 @@ select {
   width: 100%;
   padding: 10px;
   border-radius: 6px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border);
   margin-top: 5px;
-  transition: 0.2s;
+  background: var(--input-bg);
+  color: var(--text);
 }
 
 input:focus,
 select:focus {
   outline: none;
-  border-color: #4f46e5;
+  border-color: var(--primary);
 }
 
 .button-group {
@@ -168,26 +170,27 @@ button {
   border: none;
   cursor: pointer;
   font-weight: 600;
-  transition: 0.3s;
 }
 
+/* Primary */
 button:not(.secondary) {
-  background: #4f46e5;
+  background: var(--primary);
   color: white;
 }
 
 button:not(.secondary):hover:not(:disabled) {
-  background: #4338ca;
+  background: var(--primary-hover);
 }
 
+/* Secondary (Back button) */
 .secondary {
-  background: white;
-  border: 2px solid #4f46e5;
-  color: #4f46e5;
+  background: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
 }
 
 .secondary:hover {
-  background: #4f46e5;
+  background: var(--primary);
   color: white;
 }
 

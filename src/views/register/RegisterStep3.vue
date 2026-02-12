@@ -118,20 +118,21 @@ const handleRegister = async () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f3f4f6;
+  background: var(--bg);
+  color: var(--text);
 }
 
 .card {
-  background: white;
+  background: var(--card-bg);
   padding: 40px;
   width: 420px;
   border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   text-align: center;
 }
 
 .subtitle {
-  color: #6b7280;
+  color: var(--text-muted);
   margin-bottom: 25px;
 }
 
@@ -144,15 +145,15 @@ const handleRegister = async () => {
   display: flex;
   justify-content: space-between;
   padding: 10px 0;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border);
 }
 
 .summary-item span {
-  color: #6b7280;
+  color: var(--text-muted);
 }
 
 .summary-item strong {
-  color: #111827;
+  color: var(--text);
 }
 
 .button-group {
@@ -168,26 +169,27 @@ button {
   border: none;
   cursor: pointer;
   font-weight: 600;
-  transition: 0.3s;
 }
 
+/* Primary */
 button:not(.secondary) {
-  background: #4f46e5;
+  background: var(--primary);
   color: white;
 }
 
 button:not(.secondary):hover:not(:disabled) {
-  background: #4338ca;
+  background: var(--primary-hover);
 }
 
+/* Secondary */
 .secondary {
-  background: white;
-  border: 2px solid #4f46e5;
-  color: #4f46e5;
+  background: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
 }
 
 .secondary:hover {
-  background: #4f46e5;
+  background: var(--primary);
   color: white;
 }
 
@@ -197,12 +199,16 @@ button:disabled {
 }
 
 .error {
-  color: red;
+  color: #ef4444;
   margin-top: 15px;
 }
 
 .success {
-  color: #16a34a;
   margin-top: 15px;
+  padding: 12px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid #10b981;
+  border-radius: 6px;
+  color: #10b981;
 }
 </style>

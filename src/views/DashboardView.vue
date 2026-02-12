@@ -47,7 +47,8 @@ const goToUpdate = () => {
 
 .dashboard {
   min-height: 100vh;
-  background: #f5f6f8;
+  background: var(--bg);
+  color: var(--text);
 }
 
 .content {
